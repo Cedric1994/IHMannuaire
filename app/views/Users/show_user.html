@@ -1,0 +1,13 @@
+<div>
+    <h3> Utilisateur {{currentUser.surname}} {{currentUser.name}}</h3>
+    <p>Name: {{currentUser.name}}</p>
+    <p>Surname: {{currentUser.surname}}</p>
+    <p>Email: {{currentUser.email}}</p>
+    <p>Web Site: {{currentUser.website}}</p>
+    <!--<p>Create At : {{currentUser.createdAt}}</p>
+    <p>Update At : {{currentUser.updatedAt}}</p>-->
+
+    <a class="btn btn-info" > Modifier </button></a>
+    <a href="#/users/"><button ng-click="deleteUser(currentUser.id)" class="btn btn-danger" > Supprimer </button></a>
+    <a href="#/users/" class="btn btn-primary" > Retour </a>
+</div>

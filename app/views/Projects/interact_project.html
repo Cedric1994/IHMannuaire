@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<h3> Project management </h3>
 
-</body>
-</html>
+<div ng-controller="ProjectsCtrl">
+    <form class="navbar-form" novalidate>
+        <p> Project name :  <input class="form-control" ng-model="currentProject.title" type="text"></p>
+        <p> Description :  <textarea class="form-control"  ng-model="currentProject.description" type="text"> </textarea></p>
+        <p> Start year :  <input class="form-control" ng-model="currentProject.year" type="number"></p>
+
+        <input class="btn btn-primary" ng-click="modify(currentProject)" type="submit">
+    </form>
+</div>

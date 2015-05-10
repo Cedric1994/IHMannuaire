@@ -8,63 +8,44 @@
  * Controller of the pooIhmExemplesApp
  */
 angular.module('pooIhmExemplesApp')
-  .controller('UsersCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    .controller('UsersCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+        $scope.awesomeThings = [
+            'HTML5 Boilerplate',
+            'AngularJS',
+            'Karma'
+        ];
 
-    //function ajoutUser(var )
-    $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users')
-      .success(function(data) {
-        $scope.users = data.data;
-        var newData = {};
-        newData.name = 'GROUPE';
-        newData.surname = '2 EN FOOOOOOOOOOOOOOOOORCE';
-        newData.email = "monsieur.p@gmail.com";
+        $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users')
+            .success(function(data) {
+                $scope.users = data.data;
+            });
 
-         // $http.post('http://poo-ihm-2015-rest.herokuapp.com/api/Users/', newData);
+        $scope.deleteUser = function(id){
+            $http.delete('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + id);
+        }
 
-
-      });
-
-    $scope.majListUsers = function(){
-      $scope.majListUser = function(){
-        $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + $routeParams.userId)
-          .success(function(data) {
-            if (data.status == "success") {
-              $scope.currentUser = data.data;
+        $scope.modify = function(user){
+            if($routeParams.userId) {
+                this.updateUser(user);
+            } else {
+                this.createUser(user);
             }
-          });
-      }
-    }
+        }
 
-    $scope.deleteUser = function(id){
-      $http.delete('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + id);
+        $scope.createUser = function(user){
+            $http.post('http://poo-ihm-2015-rest.herokuapp.com/api/Users/', user);
+        }
 
-      $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + $routeParams.userId)
-        .success(function(data) {
-          if (data.status == "success") {
-            $scope.currentUser = data.data;
-          }
-        });
-    }
+        $scope.updateUser = function(user){
+            $http.put('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + user.id, user);
+        }
 
-    $scope.majListUser = function(){
-      $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + $routeParams.userId)
-        .success(function(data) {
-          if (data.status == "success") {
-            $scope.currentUser = data.data;
-          }
-        });
-    }
-    if($routeParams.userId) {
-      $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + $routeParams.userId)
-        .success(function(data) {
-          if (data.status == "success") {
-            $scope.currentUser = data.data;
-          }
-        });
-    }
-  }]);
+        if($routeParams.userId) {
+            $http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + $routeParams.userId)
+                .success(function(data) {
+                    if (data.status == "success") {
+                        $scope.currentUser = data.data;
+                    }
+                });
+        }
+    }]);
